@@ -1,0 +1,41 @@
+name: Publish to GitHub pages
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    publish-pages:
+        environment:
+            name: Publish website
+            url: https://air-balloon.cloud
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+                  ssh-key: ${{ secrets.SSH_KEY_DEPLOY }}
+            - name: Import GPG key
+              uses: crazy-max/ghaction-import-gpg@c8906e451f398a510633c8bf0d6150b2fb2cb7c9
+              with:
+                  gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+                  passphrase: ${{ secrets.GPG_PASSPHRASE }}
+                  git-user-signingkey: true
+                  git-commit-gpgsign: true
+            - name: Build and push
+              run: |
+                  set -o xtrace
+                  make build
+                  TEMP_DIR="$(mktemp -d --suffix=_website_air-balloon)"
+                  cp -rp air-balloon.cloud/public "${TEMP_DIR}"
+                  git checkout gh-pages
+                  git ls-files | xargs -r -n 1 rm
+                  rm -rfd ./*
+                  mv "${TEMP_DIR}"/public/* ./
+                  rm -rf "${TEMP_DIR}"
+                  echo 'air-balloon.cloud' > CNAME
+                  git add -A
+                  git commit --allow-empty -m "Content update ($(date --utc))"
+                  git push

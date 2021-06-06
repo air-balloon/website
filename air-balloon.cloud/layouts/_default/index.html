@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>{{ .Title }}</title>
+    <meta name="description" content="{{ .Description | default (.Summary | default .Site.Params.description ) }}">
+    <meta name="keywords" content="{{ (delimit .Keywords ",") | default .Site.Params.keywords }}">
+</head>
+<style>
+html {
+    background-image: url('{{ .Site.BaseURL }}assets/logo/logo_simple.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    background-size: 50%;
+}
+body {
+    text-align: center;
+}
+body > h1 {
+    color: white;
+}
+</style>
+<body>
+    <h1>The AirBalloon project (in construction)</h1>
+</body>
+</html>

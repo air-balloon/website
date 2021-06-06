@@ -1,0 +1,24 @@
+baseURL = "https://air-balloon.cloud/"
+languageCode = "en"
+title = "AirBalloon's website"
+copyright = "2020-2021 William Desportes"
+defaultContentLanguage = "en"
+enableRobotsTXT = true
+uglyURLs = true
+defaultContentLanguageInSubdir = true
+
+[languages]
+  [languages.en]
+    title = "AirBalloon project website"
+    description = "AirBalloon project website"
+    weight = 2
+  [languages.fr]
+    title = "Projet AirBalloon - site web"
+    description = "Site web du projet AirBalloon"
+    weight = 1
+
+[params]
+  [params.links]
+    github = "https://github.com/air-balloon"
+    gitlab = "https://gitlab.com/air-balloon"
+    blog = "https://blog.air-balloon.cloud"
